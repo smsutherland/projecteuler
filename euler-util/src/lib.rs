@@ -22,7 +22,7 @@ pub fn n_primes(n: usize) -> Vec<u64> {
         'block: {
             for p in &primes {
                 if count % p == 0 {
-                    count += 1;
+                    count += 2;
                     break 'block;
                 }
             }
@@ -40,7 +40,7 @@ pub fn primes_under(lim: u64) -> Vec<u64> {
         'block: {
             for p in &primes {
                 if count % p == 0 {
-                    count += 1;
+                    count += 2;
                     break 'block;
                 }
             }
