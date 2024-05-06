@@ -36,7 +36,7 @@ pub fn n_primes(n: usize) -> Vec<u64> {
 pub fn primes_under(lim: u64) -> Vec<u64> {
     let mut primes = vec![2];
     let mut count = 3;
-    while *primes.last().unwrap() < lim {
+    while count < lim {
         'block: {
             for p in &primes {
                 if count % p == 0 {
