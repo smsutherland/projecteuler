@@ -1,19 +1,4 @@
-use euler_util::factor;
-
-fn count_adj<T: PartialEq>(vec: Vec<T>) -> Vec<(usize, T)> {
-    let mut result = Vec::new();
-    for item in vec {
-        match result.last() {
-            Some((_, a)) if *a == item => {
-                result.last_mut().unwrap().0 += 1;
-            }
-            _ => {
-                result.push((1, item));
-            }
-        }
-    }
-    result
-}
+use euler_util::factor_count;
 
 fn union_counts<T: PartialEq + Clone>(master_list: &mut Vec<(usize, T)>, new_list: &[(usize, T)]) {
     for (count, item) in new_list {
@@ -32,8 +17,7 @@ fn union_counts<T: PartialEq + Clone>(master_list: &mut Vec<(usize, T)>, new_lis
 fn main() {
     let mut factors = Vec::new();
     for num in 2..=20 {
-        let these_factors = factor(num);
-        let these_factors = count_adj(these_factors);
+        let these_factors = factor_count(num);
         union_counts(&mut factors, &these_factors);
     }
     let mut prod = 1;

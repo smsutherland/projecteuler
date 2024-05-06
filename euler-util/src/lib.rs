@@ -15,6 +15,25 @@ pub fn factor(num: u64) -> Vec<u64> {
     factors
 }
 
+fn count_adj<T: PartialEq>(vec: Vec<T>) -> Vec<(usize, T)> {
+    let mut result = Vec::new();
+    for item in vec {
+        match result.last() {
+            Some((_, a)) if *a == item => {
+                result.last_mut().unwrap().0 += 1;
+            }
+            _ => {
+                result.push((1, item));
+            }
+        }
+    }
+    result
+}
+
+pub fn factor_count(num: u64) -> Vec<(usize, u64)> {
+    count_adj(factor(num))
+}
+
 pub fn n_primes(n: usize) -> Vec<u64> {
     let mut primes = vec![2];
     let mut count = 3;
