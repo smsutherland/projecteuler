@@ -6,7 +6,7 @@ fn main() {
             let prod = a * b;
             let s = prod.to_string();
             if s == s.chars().rev().collect::<String>() {
-                println!("{a} * {b} = {s}");
+                println!("{s}");
                 return;
             }
         }
