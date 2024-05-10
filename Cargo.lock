@@ -87,6 +87,13 @@ name = "euler-24"
 version = "0.1.0"
 
 [[package]]
+name = "euler-25"
+version = "0.1.0"
+dependencies = [
+ "num-bigint",
+]
+
+[[package]]
 name = "euler-3"
 version = "0.1.0"
 dependencies = [
