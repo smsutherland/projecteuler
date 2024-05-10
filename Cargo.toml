@@ -1,0 +1,26 @@
+[workspace]
+
+members = [
+  "euler-util",
+  "euler-1",
+  "euler-2",
+  "euler-3",
+  "euler-4",
+  "euler-5",
+  "euler-6",
+  "euler-7",
+  "euler-8",
+  "euler-9",
+  "euler-10",
+  "euler-11",
+  "euler-12",
+  "euler-13",
+  "euler-14",
+  "euler-15",
+  "euler-16",
+  "euler-17",
+  "euler-18",
+  "euler-19",
+  "euler-20",
+]
+resolver = "2"
