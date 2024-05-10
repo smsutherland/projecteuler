@@ -14,7 +14,7 @@ fn union_counts<T: PartialEq + Clone>(master_list: &mut Vec<(usize, T)>, new_lis
     }
 }
 
-fn main() {
+fn run() -> u64 {
     let mut factors = Vec::new();
     for num in 2..=20 {
         let these_factors = factor_count(num);
@@ -24,5 +24,14 @@ fn main() {
     for (i, prime) in factors {
         prod *= prime.pow(i as u32);
     }
-    println!("{prod}");
+    prod
+}
+
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn euler_5() {
+    assert_eq!(run(), 232792560);
 }

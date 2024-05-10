@@ -1,6 +1,6 @@
 const HEIGHT: usize = 15;
 
-fn main() {
+fn run() -> u32 {
     #[allow(clippy::zero_prefixed_literal)]
     let mut triangle: [&mut [u32]; HEIGHT] = [
         &mut [75],
@@ -29,5 +29,14 @@ fn main() {
             row[j] += prev_row[j].max(prev_row[j + 1]);
         }
     }
-    println!("{}", triangle[0][0]);
+    triangle[0][0]
+}
+
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn euler_18() {
+    assert_eq!(run(), 1074);
 }

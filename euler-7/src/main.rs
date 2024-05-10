@@ -1,6 +1,15 @@
 use euler_util::n_primes;
 
-fn main() {
+fn run() -> u64 {
     let primes = n_primes(10001);
-    println!("{}", primes.last().unwrap());
+    primes[primes.len() - 1]
+}
+
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn euler_7() {
+    assert_eq!(run(), 104743);
 }

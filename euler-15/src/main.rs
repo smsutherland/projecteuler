@@ -1,4 +1,4 @@
-fn main() {
+fn run() -> usize {
     const WIDTH: usize = 20;
     const HEIGHT: usize = 20;
 
@@ -15,6 +15,14 @@ fn main() {
             paths[y][x] = path.max(1);
         }
     }
+    paths[HEIGHT][WIDTH]
+}
 
-    println!("{}", paths[HEIGHT][WIDTH]);
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn test() {
+    assert_eq!(run(), 137846528820);
 }

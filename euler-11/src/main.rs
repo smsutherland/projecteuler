@@ -23,7 +23,7 @@ const NUMS: [[u8; 20]; 20] = [
     [01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 01, 89, 19, 67, 48],
 ];
 
-fn main() {
+fn run() -> u64 {
     let mut max = 0;
     // rows
     for row in NUMS {
@@ -53,5 +53,14 @@ fn main() {
             max = max.max(prod);
         }
     }
-    println!("{max}");
+    max
+}
+
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn euler_11() {
+    assert_eq!(run(), 70600674);
 }

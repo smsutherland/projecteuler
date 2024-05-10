@@ -1,6 +1,6 @@
 use std::num::NonZeroUsize;
 
-fn main() {
+fn run() -> usize {
     const MAX: usize = 1_000_000;
 
     let mut paths: Vec<Option<NonZeroUsize>> = vec![None; MAX];
@@ -42,5 +42,14 @@ fn main() {
             num = i + 1;
         }
     }
-    println!("{num}");
+    num
+}
+
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn euler_15() {
+    assert_eq!(run(), 837799);
 }

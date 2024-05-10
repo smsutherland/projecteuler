@@ -1,4 +1,4 @@
-fn main() {
+fn run() -> u64 {
     let mut sum: u64 = 0;
     let mut a = 1;
     let mut b = 1;
@@ -13,5 +13,14 @@ fn main() {
         a = b;
         b = c;
     }
-    println!("{sum}");
+    sum
+}
+
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn euler_2() {
+    assert_eq!(run(), 4613732);
 }

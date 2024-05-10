@@ -1,4 +1,4 @@
-fn main() {
+fn run() -> u64 {
     const MAX: u64 = 1000;
     for sum in (0..=(2 * MAX - 2)).rev() {
         for a in ((sum.saturating_sub(MAX - 1).max(1))..sum.min(MAX)).rev() {
@@ -6,9 +6,18 @@ fn main() {
             let prod = a * b;
             let s = prod.to_string();
             if s == s.chars().rev().collect::<String>() {
-                println!("{s}");
-                return;
+                return prod;
             }
         }
     }
+    panic!("Failed to find a palindrome product");
+}
+
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn euler_4() {
+    assert_eq!(run(), 906609)
 }

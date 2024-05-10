@@ -51,11 +51,20 @@ fn to_british_english(num: u32) -> String {
     "onethousand".into()
 }
 
-fn main() {
+fn run() -> usize {
     let mut sum = 0;
     for i in 1..=1000 {
         let s = to_british_english(i);
         sum += s.len();
     }
-    println!("{sum}");
+    sum
+}
+
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn euler_17() {
+    assert_eq!(run(), 21124);
 }

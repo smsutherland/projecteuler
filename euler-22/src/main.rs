@@ -5,9 +5,17 @@ fn name_score((i, s): (usize, &str)) -> u64 {
     s * (i + 1) as u64
 }
 
-fn main() {
+fn run() {
     let mut names: Vec<_> = NAMES_RAW.split(',').map(|s| &s[1..s.len() - 1]).collect();
     names.sort_unstable();
-    let scores: u64 = names.iter().copied().enumerate().map(name_score).sum();
-    println!("{scores}");
+    names.iter().copied().enumerate().map(name_score).sum()
+}
+
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn euler_22() {
+    assert_eq!(run(), 871198282);
 }

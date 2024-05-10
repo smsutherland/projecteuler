@@ -2,7 +2,7 @@ use num_bigint::BigUint;
 
 const NUM: u32 = 100;
 
-fn main() {
+fn run() -> u32 {
     let mut factorial = BigUint::from(1u32);
     for i in 1..=NUM {
         factorial *= i;
@@ -13,5 +13,14 @@ fn main() {
         sum += rem.iter_u32_digits().next().unwrap_or(0);
         factorial /= 10u32;
     }
-    println!("{sum}");
+    sum
+}
+
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn euler_20() {
+    assert_eq!(run(), 648);
 }

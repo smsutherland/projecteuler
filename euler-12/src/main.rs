@@ -1,6 +1,6 @@
 use euler_util::factor_count;
 
-fn main() {
+fn run() -> u64 {
     let mut triangle = 0;
     let mut n = 1;
     loop {
@@ -12,5 +12,14 @@ fn main() {
             break;
         }
     }
-    println!("{triangle}");
+    triangle
+}
+
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn euler_12() {
+    assert_eq!(run(), 76576500);
 }

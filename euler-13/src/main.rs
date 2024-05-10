@@ -105,11 +105,20 @@ const NUMS: [&[u8; 50]; 100] = [
 
 // TODO: implement my own big integer
 
-fn main() {
+fn run() -> String {
     let sum: BigUint = NUMS
         .into_iter()
         .map(|x| BigUint::parse_bytes(x, 10).unwrap())
         .sum();
     let s = sum.to_string();
-    println!("{}", &s[..10]);
+    s[..10].to_string()
+}
+
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn euler_13() {
+    assert_eq!(run(), "5537376230");
 }

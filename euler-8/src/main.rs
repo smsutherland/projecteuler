@@ -33,11 +33,18 @@ const NUMS: [u8; 1000] = [
     5, 2, 9, 6, 3, 4, 5, 0,
 ];
 
-fn main() {
-    let max: u64 = NUMS
-        .windows(13)
+fn run() -> u64 {
+    NUMS.windows(13)
         .map(|nums| nums.iter().map(|x| *x as u64).product())
         .max()
-        .unwrap();
-    println!("{max}");
+        .unwrap()
+}
+
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn euler_8() {
+    assert_eq!(run(), 23514624000);
 }

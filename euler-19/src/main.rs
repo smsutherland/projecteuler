@@ -6,7 +6,7 @@ fn is_leap_year(year: u32) -> bool {
     (year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0))
 }
 
-fn main() {
+fn run() -> u64 {
     let mut year = 1900;
     let mut month = 0;
     let mut day = 0;
@@ -25,5 +25,14 @@ fn main() {
             year += 1;
         }
     }
-    println!("{total}");
+    total
+}
+
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn euler_19() {
+    assert_eq!(run(), 171);
 }

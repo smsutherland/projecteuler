@@ -2,7 +2,7 @@ use num_bigint::BigUint;
 
 // TODO: use own bigint
 
-fn main() {
+fn run() -> u32 {
     const POW: u32 = 1000;
     let mut num = BigUint::from(1u32) << POW;
     let mut sum = 0;
@@ -11,5 +11,14 @@ fn main() {
         sum += rem.iter_u32_digits().next().unwrap_or(0);
         num /= 10u32;
     }
-    println!("{sum}");
+    sum
+}
+
+fn main() {
+    println!("{}", run());
+}
+
+#[test]
+fn euler_16() {
+    assert_eq!(run(), 1366)
 }
