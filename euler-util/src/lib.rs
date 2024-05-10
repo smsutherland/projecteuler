@@ -69,3 +69,32 @@ pub fn primes_under(lim: u64) -> Vec<u64> {
     }
     primes
 }
+
+pub fn divisors(n: u64) -> Vec<u64> {
+    let factors = factor_count(n);
+    let mut divisors = Vec::new();
+    let max_powers: Vec<usize> = factors.iter().map(|x| x.0).collect();
+    let mut powers = vec![0; max_powers.len()];
+    while powers != max_powers {
+        // calculate the divisor
+        let mut divisor = 1;
+        for (i, power) in powers.iter().enumerate() {
+            for _ in 0..*power {
+                divisor *= factors[i].1;
+            }
+        }
+        divisors.push(divisor);
+
+        for (i, num) in powers.iter_mut().enumerate() {
+            if *num < max_powers[i] {
+                *num += 1;
+                for p in powers[..i].iter_mut() {
+                    *p = 0;
+                }
+                break;
+            }
+        }
+    }
+
+    divisors
+}
