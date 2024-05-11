@@ -2,6 +2,7 @@
 
 members = [
   "euler-util",
+  "euler-test",
   "euler-1",
   "euler-2",
   "euler-3",
@@ -28,9 +29,9 @@ members = [
   "euler-24",
   "euler-25",
   "euler-26",
-  "euler-test",
   "euler-27",
   "euler-28",
   "euler-29",
+  "euler-30",
 ]
 resolver = "2"
