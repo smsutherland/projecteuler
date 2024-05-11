@@ -38,3 +38,4 @@ mk_test!(23, euler_23, 4179871);
 mk_test!(24, euler_24, 2783915460);
 mk_test!(25, euler_25, 4782);
 mk_test!(26, euler_26, 983);
+mk_test!(27, euler_27, -59231);

@@ -29,5 +29,6 @@ members = [
   "euler-25",
   "euler-26",
   "euler-test",
+  "euler-27",
 ]
 resolver = "2"

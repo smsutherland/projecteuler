@@ -99,7 +99,7 @@ isqrt!(u64isqrt: u64);
 pub fn primes_under(lim: u64) -> Vec<u64> {
     use bitvec::prelude::*;
 
-    let lim = lim + 1;
+    let lim = lim.saturating_sub(1);
 
     let root = u64isqrt(lim);
     let s = [1, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 49, 53, 59];
@@ -181,7 +181,7 @@ pub fn primes_under(lim: u64) -> Vec<u64> {
         for x in &s {
             let n = i + x;
             if n as usize >= is_prime.len() {
-                continue;
+                break;
             }
             if is_prime[n as usize] {
                 let nn = n * n;
@@ -208,6 +208,76 @@ pub fn primes_under(lim: u64) -> Vec<u64> {
     }
 
     result
+}
+
+pub fn is_prime(num: u64) -> bool {
+    if num == 2 || num == 3 || num == 5 {
+        return true;
+    }
+    let root = u64isqrt(num);
+    let mut p = false;
+    let r = num % 60;
+    let remainder_groups: [&[_]; 3] = [
+        &[1, 13, 17, 29, 37, 41, 49, 53],
+        &[7, 19, 31, 43],
+        &[11, 23, 47, 59],
+    ];
+
+    if remainder_groups[0].contains(&r) {
+        for x in 1..=root / 2 {
+            let xx4 = 4 * x * x;
+            for y in (1..=root).step_by(2) {
+                let n = xx4 + y * y;
+                if n > num {
+                    break;
+                }
+                if n == num {
+                    p = !p;
+                }
+            }
+        }
+    } else if remainder_groups[1].contains(&r) {
+        for x in (1..=root).step_by(2) {
+            let xx3 = 3 * x * x;
+            for y in (2..=root).step_by(2) {
+                let n = xx3 + y * y;
+                if n > num {
+                    break;
+                }
+                if n == num {
+                    p = !p
+                }
+            }
+        }
+    } else if remainder_groups[2].contains(&r) {
+        for x in 2..=root {
+            let xx3 = 3 * x * x;
+            for y in (x % 2 + 1..x).step_by(2) {
+                let n = xx3.saturating_sub(y * y);
+                if n == 0 {
+                    break;
+                }
+                if n > num {
+                    continue;
+                }
+                if n == num {
+                    p = !p;
+                }
+            }
+        }
+    } else {
+        return false;
+    }
+
+    if p {
+        for i in 2..=root {
+            if num % i * i == 0 {
+                return false;
+            }
+        }
+    }
+
+    p
 }
 
 pub fn divisors(n: u64) -> Vec<u64> {
