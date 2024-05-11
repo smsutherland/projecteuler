@@ -94,6 +94,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "euler-26"
+version = "0.1.0"
+
+[[package]]
 name = "euler-3"
 version = "0.1.0"
 dependencies = [
