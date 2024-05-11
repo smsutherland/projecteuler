@@ -35,6 +35,9 @@ pub fn factor_count(num: u64) -> Vec<(usize, u64)> {
 }
 
 pub fn n_primes(n: usize) -> Vec<u64> {
+    if n == 0 {
+        return Vec::new();
+    }
     let mut primes = vec![2];
     let mut count = 3;
     while primes.len() < n {
@@ -52,22 +55,159 @@ pub fn n_primes(n: usize) -> Vec<u64> {
     primes
 }
 
-pub fn primes_under(lim: u64) -> Vec<u64> {
-    let mut primes = vec![2];
-    let mut count = 3;
-    while count < lim {
-        'block: {
-            for p in &primes {
-                if count % p == 0 {
-                    count += 2;
-                    break 'block;
-                }
+macro_rules! isqrt {
+    ($name:ident: $t:ty) => {
+        pub const fn $name(n: $t) -> $t {
+            if n < 2 {
+                return n;
             }
-            primes.push(count);
-            count += 2;
+
+            // The algorithm is based on the one presented in
+            // <https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Binary_numeral_system_(base_2)>
+            // which cites as source the following C code:
+            // <https://web.archive.org/web/20120306040058/http://medialab.freaknet.org/martin/src/sqrt/sqrt.c>.
+
+            let mut op = n;
+            let mut res = 0;
+            let mut one = 1 << (n.ilog2() & !1);
+
+            while one != 0 {
+                if op >= res + one {
+                    op -= res + one;
+                    res = (res >> 1) + one;
+                } else {
+                    res >>= 1;
+                }
+                one >>= 2;
+            }
+
+            // SAFETY: the result is positive and fits in an integer with half as many bits.
+            // Inform the optimizer about it.
+            // unsafe {
+            //     std::hint::assert_unchecked(0 < res);
+            //     std::hint::assert_unchecked(res < 1 << ($t::BITS / 2));
+            // }
+
+            res
+        }
+    };
+}
+
+isqrt!(u64isqrt: u64);
+
+/// Based on Sieve of Atkin
+pub fn primes_under(lim: u64) -> Vec<u64> {
+    use bitvec::prelude::*;
+
+    let lim = lim + 1;
+
+    let root = u64isqrt(lim);
+    let s = [1, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 49, 53, 59];
+
+    let mut result = Vec::new();
+    let mut is_prime: BitVec = bitvec![0; lim as usize+1];
+
+    if lim > 2 {
+        result.push(2);
+    }
+    if lim > 3 {
+        result.push(3);
+    }
+    if lim > 5 {
+        result.push(5);
+    }
+
+    let remainder_groups: [&[_]; 3] = [
+        &[1, 13, 17, 29, 37, 41, 49, 53],
+        &[7, 19, 31, 43],
+        &[11, 23, 47, 59],
+    ];
+    let mut remainder_buckets = [bitvec![0; 60], bitvec![0; 60], bitvec![0; 60]];
+    for (bucket, remainder) in remainder_buckets
+        .iter_mut()
+        .zip(remainder_groups.iter().copied())
+    {
+        for r in remainder {
+            bucket.set(*r as usize, true);
         }
     }
-    primes
+
+    for x in 1..=root {
+        let xx4 = 4 * x * x;
+        for y in (1..=root).step_by(2) {
+            let n = xx4 + y * y;
+            if n > lim {
+                break;
+            }
+            if remainder_buckets[0][n as usize % 60] {
+                let new = !is_prime[n as usize];
+                is_prime.set(n as usize, new);
+            }
+        }
+    }
+
+    for x in (1..=root).step_by(2) {
+        let xx3 = 3 * x * x;
+        for y in (2..=root).step_by(2) {
+            let n = xx3 + y * y;
+            if n > lim {
+                break;
+            }
+            if remainder_buckets[1][n as usize % 60] {
+                let new = !is_prime[n as usize];
+                is_prime.set(n as usize, new);
+            }
+        }
+    }
+
+    for x in 2..=root {
+        let xx3 = 3 * x * x;
+        for y in (x % 2 + 1..x).step_by(2) {
+            let n = xx3.saturating_sub(y * y);
+            if n == 0 {
+                break;
+            }
+            if n > lim {
+                continue;
+            }
+            if remainder_buckets[2][n as usize % 60] {
+                let new = !is_prime[n as usize];
+                is_prime.set(n as usize, new);
+            }
+        }
+    }
+
+    for i in (0..root).step_by(60) {
+        for x in &s {
+            let n = i + x;
+            if n as usize >= is_prime.len() {
+                continue;
+            }
+            if is_prime[n as usize] {
+                let nn = n * n;
+                for j in (0..lim / nn).step_by(60) {
+                    for y in &s {
+                        let c = j + y;
+                        if nn * c > lim {
+                            break;
+                        }
+                        is_prime.set((nn * c) as usize, false);
+                    }
+                }
+            }
+        }
+    }
+
+    for i in (0..lim).step_by(60) {
+        for x in &s {
+            let n = i + x;
+            if n <= lim && is_prime[n as usize] {
+                result.push(n);
+            }
+        }
+    }
+
+    result
 }
 
 pub fn divisors(n: u64) -> Vec<u64> {
