@@ -132,7 +132,7 @@ pub fn primes_under(lim: u64) -> Vec<u64> {
         }
     }
 
-    for x in 1..=root {
+    for x in 1..=root / 2 {
         let xx4 = 4 * x * x;
         for y in (1..=root).step_by(2) {
             let n = xx4 + y * y;
