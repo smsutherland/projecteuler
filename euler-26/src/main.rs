@@ -30,8 +30,3 @@ fn run() -> u32 {
 fn main() {
     println!("{}", run());
 }
-
-#[test]
-fn euler_26() {
-    assert_eq!(run(), 983);
-}

@@ -16,8 +16,3 @@ fn run() -> u64 {
 fn main() {
     println!("{}", run());
 }
-
-#[test]
-fn euler_4() {
-    assert_eq!(run(), 906609)
-}

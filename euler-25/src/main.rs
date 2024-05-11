@@ -19,8 +19,3 @@ fn run() -> usize {
 fn main() {
     println!("{}", run());
 }
-
-#[test]
-fn name() {
-    assert_eq!(run(), 4782);
-}

@@ -2,7 +2,7 @@ use euler_util::divisors;
 
 const NUM: u64 = 10000;
 
-fn run() {
+fn run() -> u64 {
     let mut sum = 0;
     for a in 2..NUM {
         let b = divisors(a).iter().sum();
@@ -18,9 +18,4 @@ fn run() {
 
 fn main() {
     println!("{}", run());
-}
-
-#[test]
-fn euler_21() {
-    assert_eq!(run(), 31626);
 }

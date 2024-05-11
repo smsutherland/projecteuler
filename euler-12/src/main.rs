@@ -18,8 +18,3 @@ fn run() -> u64 {
 fn main() {
     println!("{}", run());
 }
-
-#[test]
-fn euler_12() {
-    assert_eq!(run(), 76576500);
-}

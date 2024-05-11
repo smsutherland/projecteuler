@@ -117,8 +117,3 @@ fn run() -> String {
 fn main() {
     println!("{}", run());
 }
-
-#[test]
-fn euler_13() {
-    assert_eq!(run(), "5537376230");
-}

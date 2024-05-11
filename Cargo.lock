@@ -76,6 +76,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "euler-21"
+version = "0.1.0"
+dependencies = [
+ "euler-util",
+]
+
+[[package]]
+name = "euler-22"
+version = "0.1.0"
+
+[[package]]
 name = "euler-23"
 version = "0.1.0"
 dependencies = [
@@ -133,6 +144,14 @@ version = "0.1.0"
 [[package]]
 name = "euler-9"
 version = "0.1.0"
+
+[[package]]
+name = "euler-test"
+version = "0.1.0"
+dependencies = [
+ "euler-util",
+ "num-bigint",
+]
 
 [[package]]
 name = "euler-util"

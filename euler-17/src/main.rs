@@ -63,8 +63,3 @@ fn run() -> usize {
 fn main() {
     println!("{}", run());
 }
-
-#[test]
-fn euler_17() {
-    assert_eq!(run(), 21124);
-}
