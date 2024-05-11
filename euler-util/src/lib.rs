@@ -1,13 +1,12 @@
-pub fn factor(num: u64) -> Vec<u64> {
-    let mut factors = Vec::new();
-    let mut n = num;
-    let mut i = 2;
-    while i <= n {
-        if n % i == 0 {
+pub fn factor(mut num: u64) -> Vec<u64> {
+    let twos = num.trailing_zeros();
+    let mut factors = vec![2; twos as usize];
+    num >>= twos;
+    let mut i = 3;
+    while i <= num {
+        if num % i == 0 {
             factors.push(i);
-            n /= i;
-        } else if i == 2 {
-            i += 1;
+            num /= i;
         } else {
             i += 2;
         }
@@ -55,6 +54,7 @@ pub fn n_primes(n: usize) -> Vec<u64> {
     primes
 }
 
+/// From the rust standard library. It's not stabilized yet.
 macro_rules! isqrt {
     ($name:ident: $t:ty) => {
         pub const fn $name(n: $t) -> $t {
