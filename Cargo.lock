@@ -132,6 +132,13 @@ name = "euler-28"
 version = "0.1.0"
 
 [[package]]
+name = "euler-29"
+version = "0.1.0"
+dependencies = [
+ "euler-util",
+]
+
+[[package]]
 name = "euler-3"
 version = "0.1.0"
 dependencies = [
