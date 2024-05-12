@@ -150,6 +150,10 @@ name = "euler-30"
 version = "0.1.0"
 
 [[package]]
+name = "euler-31"
+version = "0.1.0"
+
+[[package]]
 name = "euler-4"
 version = "0.1.0"
 
