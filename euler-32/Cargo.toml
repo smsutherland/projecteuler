@@ -1,9 +1,7 @@
 [package]
-name = "euler-test"
+name = "euler-32"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-num-bigint = "0.4.5"
-euler-util = { path = "../euler-util/" }
 itertools = "0.13.0"
