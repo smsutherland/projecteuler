@@ -1,4 +1,9 @@
+pub mod rational;
+
 pub fn factor(mut num: u64) -> Vec<u64> {
+    if num == 0 {
+        return Vec::new();
+    }
     let twos = num.trailing_zeros();
     let mut factors = vec![2; twos as usize];
     num >>= twos;
@@ -307,4 +312,22 @@ pub fn divisors(n: u64) -> Vec<u64> {
     }
 
     divisors
+}
+
+pub fn gcd(mut a: u64, mut b: u64) -> u64 {
+    let d = a.trailing_zeros().min(b.trailing_zeros());
+    a >>= d;
+    b >>= d;
+    a >>= a.trailing_zeros();
+    b >>= b.trailing_zeros();
+    while a != b {
+        if a > b {
+            a -= b;
+            a >>= a.trailing_zeros();
+        } else {
+            b -= a;
+            b >>= b.trailing_zeros();
+        }
+    }
+    a << d
 }
