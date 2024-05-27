@@ -45,3 +45,4 @@ mk_test!(30, euler_30, 443839);
 mk_test!(31, euler_31, 73682);
 mk_test!(32, euler_32, 45228);
 mk_test!(33, euler_33, 100);
+mk_test!(34, euler_34, 40730);
